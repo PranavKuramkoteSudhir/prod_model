@@ -1,0 +1,31 @@
+services:
+
+  jenkins:
+
+    image: jenkins/jenkins:lts
+
+    container_name: jenkins
+
+    privileged: true
+
+    user: root
+
+    ports:
+
+      - "8080:8080"
+
+      - "50000:50000"
+
+    volumes:
+
+      - jenkins_home:/var/jenkins_home
+
+      - ./jenkins-config/init.groovy.d:/var/jenkins_home/init.groovy.d
+
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    networks:
+
+      - cicd_network
+
+    restart: unless-stopped
